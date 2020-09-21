@@ -67,7 +67,7 @@ function Chat() {
       </div>
 
       <div className='chat__body'>
-        {messages.map((message) => (
+        {messages.slice(0).reverse().map((message) => (
           <>
             {/* should be id to be more professional */}
             <p className={`chat__message ${message.name === user.displayName && "chat__reciever"}`}>
