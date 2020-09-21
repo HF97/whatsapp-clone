@@ -4,9 +4,10 @@ import { SearchOutlined } from '@material-ui/icons';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './Sidebar.css';
 import SidebarChat from './SidebarChat';
-import db from './firebase';
+import db, { auth } from './firebase';
 import { useStateValue } from './StateProvider';
 
 function Sidebar() {
@@ -27,12 +28,18 @@ function Sidebar() {
       unsubscribe();
     }
   }, []);
-  
+
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  }
+
   return (
     <div className='sidebar'>
       <div className='sidebar__header'>
         <Avatar src={user?.photoURL} alt='user image'/>
-        
+
         <div className='sidebar__headerRight'>
           <IconButton>
             <DonutLargeIcon />
@@ -42,6 +49,9 @@ function Sidebar() {
           </IconButton>
           <IconButton>
             <MoreVertIcon />
+          </IconButton>
+          <IconButton>
+            <ExitToAppIcon onClick={handleAuthentication} />
           </IconButton>
         </div>
       </div>
